@@ -1,0 +1,13 @@
+#logo-pic {
+    border-radius: 5px;
+    margin-top: 2%;
+    margin-bottom: 2%;
+    border: 5px solid black;
+}
+
+@media only screen and (min-width:960px) {
+    #logo-pic {
+        max-width: 1140px;
+    }
+
+}

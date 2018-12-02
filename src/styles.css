@@ -1,1 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
+body {
+    background-image: url("/assets/peregrine_falcon___club_elsewhile_by_siamon89-d4fne27.jpg");
+}
+
+html, body {
+    height:100%;
+}

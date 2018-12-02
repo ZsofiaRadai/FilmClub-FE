@@ -1,0 +1,54 @@
+ <div>
+    <img [src]="logo" id="logo-pic">
+</div>
+
+<div>
+    <nav class="navbar navbar-inverse bs-dark" id="navbar" style="background-color: #080808"> 
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                    <span class="navbar-brand"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a 
+                class="navbar-brand" 
+                id="filmclub" 
+                [routerLink]="['/']"
+                >Film Club</a>
+            </div>
+            <div class="collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li><a [routerLink]="['/']">Home</a></li>
+                    <li><a>About</a></li>
+                    <li><a>Contact</a></li>
+                </ul>
+
+                <div class="navbar-form navbar-left" id="search">
+                    <div class="form-group">
+                        <input 
+                        type="text" 
+                        class="form-control" 
+                        name="title" 
+                        placeholder="Search in titles" 
+                        [(ngModel)]="searchedMovie"
+                        (keyup.enter)=onMovieSearched()/>
+                    </div>
+                    <button (click)="onMovieSearched()" type="submit" class="btn"><span class="glyphicon glyphicon-search"></span></button>
+                </div>
+
+                <!--<form class="navbar-form navbar-left form-horizontal" role="search">
+                    <div class="input-group">
+                        <input type="text" class="search-box" placeholder="Search">
+                        <button type="submit" class="btn"><span class="glyphicon glyphicon-search"></span></button>
+                    </div>
+                </form>-->
+
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+                    <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</div>

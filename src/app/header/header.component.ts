@@ -1,6 +1,5 @@
 import { Component } from "@angular/core";
-import { Movie } from "../movie/movie.model";
-import { MovieService } from "../movie/movie.service";
+import { Router } from "@angular/router";
 import { MovieStorageService } from "../movie/movie-storage.service";
 
 @Component({
@@ -10,7 +9,7 @@ import { MovieStorageService } from "../movie/movie-storage.service";
 })
 export class HeaderComponent {
 
-    constructor(private movieService: MovieService,
+    constructor(private router: Router,
                 private movieStorageService: MovieStorageService) {};
 
     private logo = "./assets/filmclub2.jpg";
@@ -20,6 +19,7 @@ export class HeaderComponent {
     onMovieSearched() {
        this.movieStorageService.searchMovie(this.searchedMovie);
        this.searchedMovie = '';
+       this.router.navigate(['/']);
     }
 
 }

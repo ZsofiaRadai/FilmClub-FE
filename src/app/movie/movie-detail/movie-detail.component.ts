@@ -1,8 +1,9 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { MovieService } from '../movie.service';
-import { Movie } from '../movie.model';
+import { Movie } from '../model/movie.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MovieStorageService } from '../movie-storage.service';
+import { MovieDetails } from '../model/movie-details.model';
 
 @Component({
   selector: 'app-movie-detail',
@@ -11,19 +12,25 @@ import { MovieStorageService } from '../movie-storage.service';
 })
 export class MovieDetailComponent implements OnInit {
 
-  movie: Movie;
+  movieDetails: MovieDetails;
+  isDataAvailable: boolean = false;
 
   private backIcon = "././assets/back-icon.png";
 
-  constructor(private movieService: MovieService,
-              private router: Router,
+  constructor(private router: Router,
               private route: ActivatedRoute,
               private movieStorageService: MovieStorageService) { }
 
   ngOnInit() {
     const imdbID = this.route.snapshot.params['id'];
-    this.movie = this.movieService.getMovie(imdbID);
-    this.movieStorageService.getMovieDetails(imdbID);
+    this.movieStorageService.getMovieDetails(imdbID)
+      .subscribe(
+        (response: MovieDetails) => {
+          this.movieDetails = response;
+          console.log(this.movieDetails);
+          this.isDataAvailable = true
+        }
+      );
   }
 
   onBack() {

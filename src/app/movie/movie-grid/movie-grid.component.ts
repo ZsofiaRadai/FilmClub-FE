@@ -1,6 +1,5 @@
-import { Component, OnInit } from "@angular/core";
-import { HeaderComponent } from "../../header/header.component";
-import { Movie } from "../movie.model";
+import { Component, OnInit, OnDestroy } from "@angular/core";
+import { Movie } from "../model/movie.model";
 import { MovieService } from "../movie.service";
 import { Router } from "@angular/router";
 import { Subscription } from "rxjs";
@@ -10,7 +9,7 @@ import { Subscription } from "rxjs";
     templateUrl: './movie-grid.component.html',
     styleUrls: ['./movie-grid.component.css']
 })
-export class MovieGridComponent implements OnInit {
+export class MovieGridComponent implements OnInit, OnDestroy {
 
     movies: Movie[] = []
 
@@ -29,9 +28,12 @@ export class MovieGridComponent implements OnInit {
         this.movies = this.movieService.getMovies();    
     }
 
-    onMovieSelected(movie: Movie) {
-        console.log(movie);
-        this.router.navigate(['/movie-details/movie', movie.imdbID]);
+    ngOnDestroy() {
+        this.subscription.unsubscribe();
     }
+
+/*     onMovieSelected(movie: Movie) {
+        this.router.navigate(['/movie-details/movie', movie.imdbID]);
+    } */
 
 }

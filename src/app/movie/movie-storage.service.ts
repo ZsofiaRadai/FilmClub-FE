@@ -3,7 +3,9 @@ import { Injectable } from '@angular/core';
 
 import 'rxjs/Rx';
 import { MovieService } from './movie.service';
-import { Movie } from './movie.model';
+import { Movie } from './model/movie.model';
+import { MovieDetails } from './model/movie-details.model';
+import { Observable } from 'rxjs/Rx';
 
 @Injectable()
 export class MovieStorageService {
@@ -36,16 +38,16 @@ export class MovieStorageService {
         )
     }
 
-    getMovieDetails(imdbID: string) {
-        this.http.get("http://localhost:8080/movies/" + imdbID)
+    getMovieDetails(imdbID: string): Observable<MovieDetails> {
+        return this.http.get("http://localhost:8080/movies/" + imdbID)
             .map(
                 (response: Response) => {
-                    return response.json();
-                }
-            )
-            .subscribe(
-                (movie: string) => {
-                    console.log(movie);
+                    let movieDetails: MovieDetails;
+                    const movie = response.json();
+                    movieDetails = new MovieDetails(movie.imdbID, movie.Title, movie.Year, movie.Type, movie.Poster, movie.Rated, 
+                                                    movie.Released, movie.Runtime, movie.Genre, movie.Director, movie.Writer, movie.Actors,
+                                                    movie.Plot, movie.Language, movie.Country, movie.imdbRating, movie.Awards);
+                    return movieDetails;
                 }
             )
     }

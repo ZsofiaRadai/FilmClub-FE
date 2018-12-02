@@ -1,4 +1,4 @@
-import { Movie } from "./movie.model";
+import { Movie } from "./model/movie.model";
 import { EventEmitter } from "@angular/core";
 import { Subject } from "rxjs";
 

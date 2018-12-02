@@ -35,4 +35,18 @@ export class MovieStorageService {
             }
         )
     }
+
+    getMovieDetails(imdbID: string) {
+        this.http.get("http://localhost:8080/movies/" + imdbID)
+            .map(
+                (response: Response) => {
+                    return response.json();
+                }
+            )
+            .subscribe(
+                (movie: string) => {
+                    console.log(movie);
+                }
+            )
+    }
 }

@@ -12,7 +12,13 @@
         [routerLink]="['/movie-details/movie', movie.imdbID]">
     </div>
 
+
     <div class="row pagination" *ngIf="movies.length >= 30">
+
+        <div class="pull-left" *ngIf="pageNum > 1">
+                <img class="arrows" [src]="previousArrow"  (click)="onPreviousPage()" alt="">
+        </div>
+
         <div class="pull-right">
             <img class="arrows" [src]="nextArrow"  (click)="onNextPage()" alt="">
         </div>

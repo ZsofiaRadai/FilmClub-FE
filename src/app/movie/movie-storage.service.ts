@@ -22,6 +22,7 @@ export class MovieStorageService {
     searchedMovieTitle: string;
 
     searchMovieWithPage(title:string, pageNum: number) {
+        console.log(pageNum);
         this.searchedMovieTitle = title;
         this.pageNumOMDB = [pageNum * 3 - 2, pageNum * 3 - 1, pageNum * 3];
         for (let i of this.pageNumOMDB) {
@@ -35,7 +36,6 @@ export class MovieStorageService {
         this.http.get("http://www.omdbapi.com/?apikey=ac3c14bf&s=" + title + "&page=" + pageNumOMDB)
         .map(
             (response: Response) => {
-                console.log(response.json())
             const responseJSON = response.json();
 
             /*TODO: write logic to match page number with result number 

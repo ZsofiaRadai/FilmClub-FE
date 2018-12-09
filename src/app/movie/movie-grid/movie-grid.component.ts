@@ -19,7 +19,7 @@ export class MovieGridComponent implements OnInit, OnDestroy {
 
     /* when movie grid component is created, a search already have been made 
     - so we need to call the next section of results (page 2 in our app)*/
-    pageNum: number = 2;
+    pageNum: number = 1;
 
     private previousArrow = "./assets/previous.png";
     private nextArrow = "./assets/next.png";
@@ -44,9 +44,16 @@ export class MovieGridComponent implements OnInit, OnDestroy {
 
     onNextPage() {
         this.movieStorageService.clearMoviesSearchedWithPages();
-        console.log(this.movieStorageService.getSearchedMovieTitle());
-        this.movieStorageService.searchMovieWithPage(this.movieStorageService.getSearchedMovieTitle(), this.pageNum);
+        console.log(this.pageNum);
         this.pageNum++;
+        this.movieStorageService.searchMovieWithPage(this.movieStorageService.getSearchedMovieTitle(), this.pageNum);
+    }
+
+    onPreviousPage() {
+        this.movieStorageService.clearMoviesSearchedWithPages();
+        console.log(this.pageNum);
+        this.pageNum--;
+        this.movieStorageService.searchMovieWithPage(this.movieStorageService.getSearchedMovieTitle(), this.pageNum);
     }
 
 }

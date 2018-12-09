@@ -10,7 +10,8 @@ const appRoutes: Routes = [
     {path: 'movies', component: MovieGridComponent},
     {path: 'movie-details', component: MovieDetailComponent},
     {path: 'movie-details/movie/:id', component: MovieDetailComponent},
-    {path: '**', component: ErrorPageComponent},
+    {path: 'not-found', component: ErrorPageComponent, data: {message: "Movie not found."}},
+    {path: '**', component: ErrorPageComponent, data: {message: "This is not the page you were looking for!"}},
   ]
 
 @NgModule({

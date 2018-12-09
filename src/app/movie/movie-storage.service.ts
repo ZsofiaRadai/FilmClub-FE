@@ -6,12 +6,14 @@ import { MovieService } from './movie.service';
 import { Movie } from './model/movie.model';
 import { MovieDetails } from './model/movie-details.model';
 import { Observable } from 'rxjs/Rx';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class MovieStorageService {
 
     constructor(private http: Http,
-                private movieService: MovieService) {}
+                private movieService: MovieService,
+                private router: Router) {}
 
     public moviesSearchedWithPages: Movie[] = [];
     page: number = 1;
@@ -23,9 +25,16 @@ export class MovieStorageService {
             console.log(response.json());
             const responseJSON = response.json();
 
+            if (responseJSON.Response === 'False' && responseJSON.Error === "Movie not found!") {
+                console.log('Movie not found!');
+                this.router.navigate(['/not-found']);
+                return;
+            }
+
             const movies = response.json().Search;
             const searchedMovies: Movie[] = [];
 
+            /* total number of pages bigger than 3*/
             if ( (responseJSON.totalResults / 10) >= 3 ) {
                 while( this.page < 3) {
                     this.page++;
@@ -45,7 +54,9 @@ export class MovieStorageService {
         .subscribe(
             (movies: Movie[]) => {
                 console.log(this.moviesSearchedWithPages);
-                this.movieService.setMovies(movies);
+                if (movies) {
+                    this.movieService.setMovies(movies);
+                }
             }
         )
     }

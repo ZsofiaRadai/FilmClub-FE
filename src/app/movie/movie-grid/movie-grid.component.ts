@@ -15,6 +15,9 @@ export class MovieGridComponent implements OnInit, OnDestroy {
 
     subscription: Subscription;
 
+    private previousArrow = "./assets/previous.png";
+    private nextArrow = "./assets/next.png";
+
     constructor(private movieService: MovieService,
                 private router: Router) {};
 

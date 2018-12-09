@@ -16,31 +16,37 @@ export class MovieStorageService {
                 private router: Router) {}
 
     public moviesSearchedWithPages: Movie[] = [];
-    page: number = 1;
 
-    searchMovie(title: string) {
-        this.http.get("http://www.omdbapi.com/?apikey=ac3c14bf&s=" + title + "&page=" + this.page)
+    pageNumOMDB: number[] = [1, 2, 3];
+    pageNum: number;
+    searchedMovieTitle: string;
+
+    searchMovieWithPage(title:string, pageNum: number) {
+        this.searchedMovieTitle = title;
+        this.pageNumOMDB = [pageNum * 3 - 2, pageNum * 3 - 1, pageNum * 3];
+        for (let i of this.pageNumOMDB) {
+            this.searchMovie(this.searchedMovieTitle, i);
+        }
+        console.log(this.pageNumOMDB);
+        
+    }
+
+    searchMovie(title: string, pageNumOMDB: number) {
+        this.http.get("http://www.omdbapi.com/?apikey=ac3c14bf&s=" + title + "&page=" + pageNumOMDB)
         .map(
             (response: Response) => {
-            console.log(response.json());
+                console.log(response.json())
             const responseJSON = response.json();
 
-            if (responseJSON.Response === 'False' && responseJSON.Error === "Movie not found!") {
+            /*TODO: write logic to match page number with result number 
+            - to not throw error, if result list is less than page number requested */
+            if (responseJSON.Response === 'False' && responseJSON.Error === "Movie not found!" && !responseJSON.Search) {
                 console.log('Movie not found!');
                 this.router.navigate(['/not-found']);
                 return;
             }
 
             const movies = response.json().Search;
-            const searchedMovies: Movie[] = [];
-
-            /* total number of pages bigger than 3*/
-            if ( (responseJSON.totalResults / 10) >= 3 ) {
-                while( this.page < 3) {
-                    this.page++;
-                    this.searchMovie(title);
-                }
-            }
 
             for (let movie of movies) {
                 movie = new Movie(movie.imdbID, movie.Title, movie.Year, movie.Type, movie.Poster);
@@ -53,8 +59,8 @@ export class MovieStorageService {
         })
         .subscribe(
             (movies: Movie[]) => {
-                console.log(this.moviesSearchedWithPages);
                 if (movies) {
+                    console.log(this.moviesSearchedWithPages);
                     this.movieService.setMovies(movies);
                 }
             }
@@ -76,7 +82,20 @@ export class MovieStorageService {
     }
 
     clearPreviousSearch() {
-        this.page = 1;
+        this.pageNumOMDB = [1, 2, 3];
         this.moviesSearchedWithPages = [];
     }
+
+    clearMoviesSearchedWithPages() {
+        this.moviesSearchedWithPages = [];
+    }
+
+    setSearchedMovieTitle(title: string) {
+        this.searchedMovieTitle = title;
+    }
+
+    getSearchedMovieTitle() {
+        return this.searchedMovieTitle;
+    }
+
 }

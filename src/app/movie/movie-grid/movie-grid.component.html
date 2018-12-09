@@ -14,7 +14,7 @@
 
     <div class="row pagination" *ngIf="movies.length >= 30">
         <div class="pull-right">
-            <img class="arrows" [src]="nextArrow" alt="">
+            <img class="arrows" [src]="nextArrow"  (click)="onNextPage()" alt="">
         </div>
     </div>
 

@@ -11,8 +11,8 @@
         <!--</div>-->
     <!--</div>-->
 
-    <div id="movie-details-part" *ngIf="isDataAvailable">
-      <div class="row">
+    <div id="movie-details-part">
+      <div class="row" *ngIf="dataAvailable">
 
           <div class="col-lg-4" style="width: 30%">
             <img class="pull-left" [src]="movieDetails.poster" style="max-height: 500px; max-width: 355px"/>

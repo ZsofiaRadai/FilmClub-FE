@@ -17,9 +17,10 @@ export class HeaderComponent {
     private searchedMovie;
 
     onMovieSearched() {
-       this.movieStorageService.searchMovie(this.searchedMovie);
-       this.searchedMovie = '';
-       this.router.navigate(['/']);
+        this.movieStorageService.clearPreviousSearch();
+        this.movieStorageService.searchMovie(this.searchedMovie);
+        this.searchedMovie = '';
+        this.router.navigate(['/']);
     }
 
 }

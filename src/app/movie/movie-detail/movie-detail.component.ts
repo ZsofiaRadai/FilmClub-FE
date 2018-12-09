@@ -13,7 +13,7 @@ import { MovieDetails } from '../model/movie-details.model';
 export class MovieDetailComponent implements OnInit {
 
   movieDetails: MovieDetails;
-  isDataAvailable: boolean = false;
+  dataAvailable: boolean = false;
 
   private backIcon = "././assets/back-icon.png";
 
@@ -28,7 +28,7 @@ export class MovieDetailComponent implements OnInit {
         (response: MovieDetails) => {
           this.movieDetails = response;
           console.log(this.movieDetails);
-          this.isDataAvailable = true
+          this.dataAvailable = true
         }
       );
   }

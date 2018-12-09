@@ -13,33 +13,45 @@ export class MovieStorageService {
     constructor(private http: Http,
                 private movieService: MovieService) {}
 
+    public moviesSearchedWithPages: Movie[] = [];
+    page: number = 1;
+
     searchMovie(title: string) {
-        this.http.get("http://localhost:8080/search?title=" + title)
+        this.http.get("http://www.omdbapi.com/?apikey=ac3c14bf&s=" + title + "&page=" + this.page)
         .map(
             (response: Response) => {
             console.log(response.json());
+            const responseJSON = response.json();
 
-            const movies = response.json();
+            const movies = response.json().Search;
             const searchedMovies: Movie[] = [];
 
-            for (let movie of movies.Search) {
-                movie = new Movie(movie.imdbID, movie.Title, movie.Year, movie.Type, movie.Poster);
-                searchedMovies.push(movie);
+            if ( (responseJSON.totalResults / 10) >= 3 ) {
+                while( this.page < 3) {
+                    this.page++;
+                    this.searchMovie(title);
+                }
             }
-            return searchedMovies;
+
+            for (let movie of movies) {
+                movie = new Movie(movie.imdbID, movie.Title, movie.Year, movie.Type, movie.Poster);
+                this.moviesSearchedWithPages.push(movie);
+            }
+            return this.moviesSearchedWithPages;
         },
         err => {
             console.log("oops")
         })
         .subscribe(
             (movies: Movie[]) => {
+                console.log(this.moviesSearchedWithPages);
                 this.movieService.setMovies(movies);
             }
         )
     }
 
     getMovieDetails(imdbID: string): Observable<MovieDetails> {
-        return this.http.get("http://localhost:8080/movies/" + imdbID)
+        return this.http.get("http://www.omdbapi.com/?apikey=ac3c14bf&i=" + imdbID)
             .map(
                 (response: Response) => {
                     let movieDetails: MovieDetails;
@@ -50,5 +62,10 @@ export class MovieStorageService {
                     return movieDetails;
                 }
             )
+    }
+
+    clearPreviousSearch() {
+        this.page = 1;
+        this.moviesSearchedWithPages = [];
     }
 }

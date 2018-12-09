@@ -2,16 +2,22 @@
 
     <div *ngFor="let movie of movies" class="col-lg-2">
         <img appMovieGrid
-        class="img-thumbnail" 
+        class="img-thumbnail movieThumbnail" 
         [src]="movie.poster" 
         alt=""
         [tooltip]="(movie.title) + ' ' + '(' + (movie.year) + ')' "
         placement="top"
         show-delay="500"
         theme="dark"
-        style="width: 165px; height: 240px; object-fit:cover; border: 1px solid black; margin-bottom: 30px; cursor: pointer;"
         [routerLink]="['/movie-details/movie', movie.imdbID]">
     </div>
+
+    <div class="row pagination" *ngIf="movies.length >= 30">
+        <div class="pull-right">
+            <img class="arrows" [src]="nextArrow" alt="">
+        </div>
+    </div>
+
         
     
 </div>

@@ -13,6 +13,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AuthGuard } from './auth-guard.service';
 import { AuthService } from './auth.service';
 import { HttpModule } from '@angular/http';
+import { HomeComponent } from './home/home.component';
+
 
 @NgModule({
   declarations: [
@@ -22,7 +24,8 @@ import { HttpModule } from '@angular/http';
     MovieDetailComponent,
     MovieGridDirective,
     MovieDetailComponent,
-    ErrorPageComponent
+    ErrorPageComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,

@@ -23,7 +23,7 @@ export class HeaderComponent {
         /* we call page 1, because from header we always call the first search
         - see next pages in movie grid */
         this.movieStorageService.setPageNum(1);
-        this.movieStorageService.searchMovieWithPage(this.searchedMovie);
+        this.movieStorageService.searchMovieWithPage(this.searchedMovie, this.movieStorageService.getPageNum());
         this.router.navigate(
             ['/search'], 
             {queryParams: {

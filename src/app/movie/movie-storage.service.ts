@@ -15,17 +15,15 @@ export class MovieStorageService {
                 private movieService: MovieService,
                 private router: Router) {}
 
-    moviesSearchedWithPages: Movie[] = [];
+    private moviesSearchedWithPages: Movie[] = [];
+    private pageNumOMDB: number[] = [1, 2, 3];
+    private pageNum: number;
+    private searchedMovieTitle: string;
+    private totalResults: number;
 
-    pageNumOMDB: number[] = [1, 2, 3];
-
-    pageNum: number;
-    
-    searchedMovieTitle: string;
-
-    searchMovieWithPage(title:string) {
+    searchMovieWithPage(title:string, pageNum: number) {
         this.searchedMovieTitle = title;
-        this.pageNumOMDB = [this.pageNum * 3 - 2, this.pageNum * 3 - 1, this.pageNum * 3];
+        this.pageNumOMDB = [pageNum * 3 - 2, pageNum * 3 - 1, pageNum * 3];
         for (let i of this.pageNumOMDB) {
             this.searchMovie(this.searchedMovieTitle, i);
         }
@@ -47,7 +45,8 @@ export class MovieStorageService {
                 return;
             }
 
-            const movies = response.json().Search;
+            const movies = responseJSON.Search;
+            this.totalResults = responseJSON.totalResults;
 
             for (let movie of movies) {
                 movie = new Movie(movie.imdbID, movie.Title, movie.Year, movie.Type, movie.Poster);
@@ -61,7 +60,6 @@ export class MovieStorageService {
         .subscribe(
             (movies: Movie[]) => {
                 if (movies) {
-                    console.log(this.moviesSearchedWithPages);
                     this.movieService.setMovies(movies);
                 }
             }
@@ -82,37 +80,33 @@ export class MovieStorageService {
             )
     }
 
-    clearPreviousSearch() {
+    public clearPreviousSearch() {
         this.pageNumOMDB = [1, 2, 3];
         this.moviesSearchedWithPages = [];
     }
 
-    clearMoviesSearchedWithPages() {
+    public clearMoviesSearchedWithPages() {
         this.moviesSearchedWithPages = [];
     }
 
-    setSearchedMovieTitle(title: string) {
+    public setSearchedMovieTitle(title: string) {
         this.searchedMovieTitle = title;
     }
 
-    getSearchedMovieTitle() {
+    public getSearchedMovieTitle() {
         return this.searchedMovieTitle;
     }
 
-    getPageNum() {
+    public getTotalResults(): number {
+        return this.totalResults;
+    }
+
+    public getPageNum() {
         return this.pageNum;
     }
 
-    setPageNum(num: number) {
+    public setPageNum(num: number) {
         this.pageNum = num;
-    }
-
-    incrementPageNum() {
-        this.pageNum++;
-    }
-
-    decrementPageNum() {
-        this.pageNum--;
     }
 
 }

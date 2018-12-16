@@ -4,6 +4,7 @@ import { MovieService } from "../movie.service";
 import { Router } from "@angular/router";
 import { Subscription } from "rxjs";
 import { MovieStorageService } from "../movie-storage.service";
+import { PagerService } from "src/app/util/pager.service";
 
 @Component({
     selector: 'app-movie-grid',
@@ -21,23 +22,49 @@ export class MovieGridComponent implements OnInit, OnDestroy {
 
     constructor(private movieService: MovieService,
                 private movieStorageService: MovieStorageService,
-                private router: Router) {};
+                private router: Router,
+                private pagerService: PagerService) {};
+
+    // array of all items to be paged
+    private allItems: number;
+ 
+    // pager object
+    pager: any = {};
+ 
+    // paged items
+    pagedItems: any[];
 
     ngOnInit() {
+        this.pager = this.pagerService.getPager(this.allItems, 1);
         this.subscSearchedMovies = this.movieService.searchedMovies
             .subscribe(
                 (movies: Movie[]) => {
                     this.movies = movies;
+                    this.allItems = this.movieStorageService.getTotalResults();
                 }
             )
         this.movies = this.movieService.getMovies();    
     }
 
     ngOnDestroy() {
+        console.log("movie grid destroyed.")
         this.subscSearchedMovies.unsubscribe();
     }
 
-    onNextPage() {
+    setPage(page: number) {
+        // get pager object from service
+        this.pager = this.pagerService.getPager(this.allItems, page);
+ 
+        // get current page of items
+        this.pagedItems = this.movies.slice(this.pager.startIndex, this.pager.endIndex + 1);
+        this.movieStorageService.clearMoviesSearchedWithPages();
+        this.movieStorageService.searchMovieWithPage(this.movieStorageService.getSearchedMovieTitle(), page);
+        this.router.navigate(
+            ['/search'], {queryParams: {page: page}, queryParamsHandling: 'merge'} 
+            );
+    }
+
+/*     onNextPage() {
         this.movieStorageService.clearMoviesSearchedWithPages();
         this.movieStorageService.incrementPageNum();
         this.movieStorageService.searchMovieWithPage(this.movieStorageService.getSearchedMovieTitle());
@@ -53,6 +80,6 @@ export class MovieGridComponent implements OnInit, OnDestroy {
         this.router.navigate(
             ['/search'], {queryParams: {page: this.movieStorageService.getPageNum()}, queryParamsHandling: 'merge'} 
             );
-    }
+    } */
 
 }

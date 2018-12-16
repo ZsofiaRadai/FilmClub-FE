@@ -7,7 +7,7 @@ import { ErrorPageComponent } from './error-page/error-page.component';
 
 const appRoutes: Routes = [
     {path: '', component: MovieGridComponent},
-    {path: 'movies', component: MovieGridComponent},
+    {path: 'search', component: MovieGridComponent},
     {path: 'movie-details', component: MovieDetailComponent},
     {path: 'movie-details/movie/:id', component: MovieDetailComponent},
     {path: 'not-found', component: ErrorPageComponent, data: {message: "Movie not found."}},

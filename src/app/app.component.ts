@@ -1,13 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { Movie } from './movie/model/movie.model';
-import { MovieService } from './movie/movie.service';
 import { MovieStorageService } from './movie/movie-storage.service';
+import { MovieService } from './movie/movie.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
-  providers: [MovieService, MovieStorageService]
+  providers: [MovieStorageService, MovieService]
 })
 export class AppComponent {
 }

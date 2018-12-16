@@ -4,7 +4,6 @@ import { MovieService } from "../movie.service";
 import { Router } from "@angular/router";
 import { Subscription } from "rxjs";
 import { MovieStorageService } from "../movie-storage.service";
-import { HeaderComponent } from "src/app/header/header.component";
 
 @Component({
     selector: 'app-movie-grid',
@@ -15,11 +14,7 @@ export class MovieGridComponent implements OnInit, OnDestroy {
 
     movies: Movie[] = []
 
-    subscription: Subscription;
-
-    /* when movie grid component is created, a search already have been made 
-    - so we need to call the next section of results (page 2 in our app)*/
-    pageNum: number = 1;
+    subscSearchedMovies: Subscription;
 
     private previousArrow = "./assets/previous.png";
     private nextArrow = "./assets/next.png";
@@ -29,7 +24,7 @@ export class MovieGridComponent implements OnInit, OnDestroy {
                 private router: Router) {};
 
     ngOnInit() {
-        this.subscription = this.movieService.searchedMovies
+        this.subscSearchedMovies = this.movieService.searchedMovies
             .subscribe(
                 (movies: Movie[]) => {
                     this.movies = movies;
@@ -39,21 +34,25 @@ export class MovieGridComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy() {
-        this.subscription.unsubscribe();
+        this.subscSearchedMovies.unsubscribe();
     }
 
     onNextPage() {
         this.movieStorageService.clearMoviesSearchedWithPages();
-        console.log(this.pageNum);
-        this.pageNum++;
-        this.movieStorageService.searchMovieWithPage(this.movieStorageService.getSearchedMovieTitle(), this.pageNum);
+        this.movieStorageService.incrementPageNum();
+        this.movieStorageService.searchMovieWithPage(this.movieStorageService.getSearchedMovieTitle());
+        this.router.navigate(
+            ['/search'], {queryParams: {page: this.movieStorageService.getPageNum()}, queryParamsHandling: 'merge'} 
+            );
     }
 
     onPreviousPage() {
         this.movieStorageService.clearMoviesSearchedWithPages();
-        console.log(this.pageNum);
-        this.pageNum--;
-        this.movieStorageService.searchMovieWithPage(this.movieStorageService.getSearchedMovieTitle(), this.pageNum);
+        this.movieStorageService.decrementPageNum();
+        this.movieStorageService.searchMovieWithPage(this.movieStorageService.getSearchedMovieTitle());
+        this.router.navigate(
+            ['/search'], {queryParams: {page: this.movieStorageService.getPageNum()}, queryParamsHandling: 'merge'} 
+            );
     }
 
 }

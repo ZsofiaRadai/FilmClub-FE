@@ -1,7 +1,10 @@
 import { Movie } from "./model/movie.model";
-import { EventEmitter } from "@angular/core";
+import { EventEmitter, Injectable } from "@angular/core";
 import { Subject } from "rxjs";
 
+@Injectable({
+    providedIn: 'root',
+  })
 export class MovieService {
 
     movieSelected = new EventEmitter<Movie>();
@@ -34,4 +37,5 @@ export class MovieService {
         );
         return movie;
     }
+    
 }

@@ -1,6 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { MovieService } from '../movie.service';
-import { Movie } from '../model/movie.model';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MovieStorageService } from '../movie-storage.service';
 import { MovieDetails } from '../model/movie-details.model';
@@ -10,6 +8,7 @@ import { MovieDetails } from '../model/movie-details.model';
   templateUrl: './movie-detail.component.html',
   styleUrls: ['./movie-detail.component.css']
 })
+
 export class MovieDetailComponent implements OnInit {
 
   movieDetails: MovieDetails;
@@ -34,7 +33,13 @@ export class MovieDetailComponent implements OnInit {
   }
 
   onBack() {
-    this.router.navigate(['../../../'], { relativeTo: this.route });
+    this.router.navigate(
+      ['/search'], 
+        {queryParams: {
+          title: this.movieStorageService.getSearchedMovieTitle(), 
+          page: this.movieStorageService.getPageNum()
+          } 
+        })
   }
 
 }

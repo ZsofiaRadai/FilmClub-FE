@@ -15,16 +15,17 @@ export class MovieStorageService {
                 private movieService: MovieService,
                 private router: Router) {}
 
-    public moviesSearchedWithPages: Movie[] = [];
+    moviesSearchedWithPages: Movie[] = [];
 
     pageNumOMDB: number[] = [1, 2, 3];
+
     pageNum: number;
+    
     searchedMovieTitle: string;
 
-    searchMovieWithPage(title:string, pageNum: number) {
-        console.log(pageNum);
+    searchMovieWithPage(title:string) {
         this.searchedMovieTitle = title;
-        this.pageNumOMDB = [pageNum * 3 - 2, pageNum * 3 - 1, pageNum * 3];
+        this.pageNumOMDB = [this.pageNum * 3 - 2, this.pageNum * 3 - 1, this.pageNum * 3];
         for (let i of this.pageNumOMDB) {
             this.searchMovie(this.searchedMovieTitle, i);
         }
@@ -96,6 +97,22 @@ export class MovieStorageService {
 
     getSearchedMovieTitle() {
         return this.searchedMovieTitle;
+    }
+
+    getPageNum() {
+        return this.pageNum;
+    }
+
+    setPageNum(num: number) {
+        this.pageNum = num;
+    }
+
+    incrementPageNum() {
+        this.pageNum++;
+    }
+
+    decrementPageNum() {
+        this.pageNum--;
     }
 
 }

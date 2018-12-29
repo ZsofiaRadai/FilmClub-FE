@@ -35,11 +35,12 @@ export class MovieDetailComponent implements OnInit {
   onBack() {
     this.router.navigate(
       ['/search'], 
-        {queryParams: {
+        {
+          queryParams: {
           title: this.movieStorageService.getSearchedMovieTitle(), 
           page: this.movieStorageService.getPageNum()
           } 
-        })
+        },)
   }
 
 }

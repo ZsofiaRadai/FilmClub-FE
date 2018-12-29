@@ -35,7 +35,7 @@ export class MovieGridComponent implements OnInit, OnDestroy {
     pagedItems: any[];
 
     ngOnInit() {
-        this.pager = this.pagerService.getPager(this.allItems, 1);
+        this.pager = this.pagerService.getPager(this.allItems, this.movieStorageService.getPageNum());
         this.subscSearchedMovies = this.movieService.searchedMovies
             .subscribe(
                 (movies: Movie[]) => {
@@ -50,6 +50,8 @@ export class MovieGridComponent implements OnInit, OnDestroy {
         console.log("movie grid destroyed.")
         this.subscSearchedMovies.unsubscribe();
     }
+
+    //TODO: scroll to top when new page called
 
     setPage(page: number) {
         // get pager object from service

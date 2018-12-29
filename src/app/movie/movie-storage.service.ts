@@ -17,12 +17,13 @@ export class MovieStorageService {
 
     private moviesSearchedWithPages: Movie[] = [];
     private pageNumOMDB: number[] = [1, 2, 3];
-    private pageNum: number;
+    private pageNum: number = 1;
     private searchedMovieTitle: string;
     private totalResults: number;
 
     searchMovieWithPage(title:string, pageNum: number) {
         this.searchedMovieTitle = title;
+        this.pageNum = pageNum;
         this.pageNumOMDB = [pageNum * 3 - 2, pageNum * 3 - 1, pageNum * 3];
         for (let i of this.pageNumOMDB) {
             this.searchMovie(this.searchedMovieTitle, i);
@@ -37,7 +38,7 @@ export class MovieStorageService {
             (response: Response) => {
             const responseJSON = response.json();
 
-            /*TODO: write logic to match page number with result number 
+            /*TODO: FIX LOGIC write logic to match page number with result number 
             - to not throw error, if result list is less than page number requested */
             if (responseJSON.Response === 'False' && responseJSON.Error === "Movie not found!" && !responseJSON.Search) {
                 console.log('Movie not found!');

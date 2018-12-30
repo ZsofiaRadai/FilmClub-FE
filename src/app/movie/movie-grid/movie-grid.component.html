@@ -1,4 +1,4 @@
-<div id="movie-grid-container">
+<div id="movie-grid-container" class="col-lg-12">
 
     <div *ngFor="let movie of movies" class="col-lg-2">
         <img appMovieGrid
@@ -11,18 +11,6 @@
         theme="dark"
         [routerLink]="['/movie-details/movie', movie.imdbID]">
     </div>
-
-
-<!--     <div class="row pagination" *ngIf="movies.length >= 30">
-
-        <div class="pull-left" *ngIf="movieStorageService.getPageNum() > 1">
-            <img class="arrows" [src]="previousArrow"  (click)="onPreviousPage()" alt="">
-        </div>
-
-        <div class="pull-right">
-            <img class="arrows" [src]="nextArrow"  (click)="onNextPage()" alt="">
-        </div>
-    </div> -->
     
 </div>
 

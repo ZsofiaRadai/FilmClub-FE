@@ -17,9 +17,6 @@ export class MovieGridComponent implements OnInit, OnDestroy {
 
     subscSearchedMovies: Subscription;
 
-    private previousArrow = "./assets/previous.png";
-    private nextArrow = "./assets/next.png";
-
     constructor(private movieService: MovieService,
                 private movieStorageService: MovieStorageService,
                 private router: Router,
@@ -35,23 +32,24 @@ export class MovieGridComponent implements OnInit, OnDestroy {
     pagedItems: any[];
 
     ngOnInit() {
-        this.pager = this.pagerService.getPager(this.allItems, this.movieStorageService.getPageNum());
         this.subscSearchedMovies = this.movieService.searchedMovies
-            .subscribe(
-                (movies: Movie[]) => {
-                    this.movies = movies;
-                    this.allItems = this.movieStorageService.getTotalResults();
-                }
-            )
-        this.movies = this.movieService.getMovies();    
+        .subscribe(
+            (movies: Movie[]) => {
+                this.movies = movies;
+                this.allItems = this.movieStorageService.getTotalResults();
+                console.log(this.allItems);
+                this.pager = this.pagerService.getPager(this.allItems, this.movieStorageService.getPageNum());
+            }
+        )
+        this.allItems = this.movieStorageService.getTotalResults();
+        this.pager = this.pagerService.getPager(this.allItems, this.movieStorageService.getPageNum());
+        this.movies = this.movieService.getMovies();
     }
 
     ngOnDestroy() {
-        console.log("movie grid destroyed.")
+        console.log("movie grid destroyed.");
         this.subscSearchedMovies.unsubscribe();
     }
-
-    //TODO: scroll to top when new page called
 
     setPage(page: number) {
         // get pager object from service
@@ -64,24 +62,7 @@ export class MovieGridComponent implements OnInit, OnDestroy {
         this.router.navigate(
             ['/search'], {queryParams: {page: page}, queryParamsHandling: 'merge'} 
             );
+        document.documentElement.scrollTop = 0;
     }
-
-/*     onNextPage() {
-        this.movieStorageService.clearMoviesSearchedWithPages();
-        this.movieStorageService.incrementPageNum();
-        this.movieStorageService.searchMovieWithPage(this.movieStorageService.getSearchedMovieTitle());
-        this.router.navigate(
-            ['/search'], {queryParams: {page: this.movieStorageService.getPageNum()}, queryParamsHandling: 'merge'} 
-            );
-    }
-
-    onPreviousPage() {
-        this.movieStorageService.clearMoviesSearchedWithPages();
-        this.movieStorageService.decrementPageNum();
-        this.movieStorageService.searchMovieWithPage(this.movieStorageService.getSearchedMovieTitle());
-        this.router.navigate(
-            ['/search'], {queryParams: {page: this.movieStorageService.getPageNum()}, queryParamsHandling: 'merge'} 
-            );
-    } */
 
 }

@@ -1,6 +1,7 @@
 import { Component } from "@angular/core";
 import { Router } from "@angular/router";
 import { MovieStorageService } from "../movie/movie-storage.service";
+import { MovieService } from "../movie/movie.service";
 
 @Component({
     selector: 'app-header',
@@ -15,7 +16,7 @@ export class HeaderComponent {
 
     private logo = "./assets/filmclub2.jpg";
 
-    private searchedMovie;
+    private searchedMovie: string;
 
     onMovieSearched() {
         this.movieStorageService.clearPreviousSearch();
@@ -24,6 +25,7 @@ export class HeaderComponent {
         - see next pages in movie grid */
         this.movieStorageService.setPageNum(1);
         this.movieStorageService.searchMovieWithPage(this.searchedMovie, this.movieStorageService.getPageNum());
+
         this.router.navigate(
             ['/search'], 
             {queryParams: {

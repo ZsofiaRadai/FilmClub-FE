@@ -11,10 +11,7 @@ export class MovieService {
 
     searchedMovies = new Subject<Movie[]>();
     
-    private movies: Movie[] = [
-        new Movie('tt199', 'Fight club', '1999', 'drama', 'https://images-na.ssl-images-amazon.com/images/I/51v5ZpFyaFL.jpg'),
-        new Movie('tt198', 'Gattaca', '1997', 'sci-fi', 'https://images-na.ssl-images-amazon.com/images/I/51pawxK0GBL.jpg')
-    ];
+    private movies: Movie[] = [];
 
     setMovies(movies: Movie[]) {
         this.movies = movies;

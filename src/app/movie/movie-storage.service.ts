@@ -38,21 +38,26 @@ export class MovieStorageService {
             (response: Response) => {
             const responseJSON = response.json();
 
-            /*TODO: FIX LOGIC write logic to match page number with result number 
-            - to not throw error, if result list is less than page number requested */
+            /*POSSIBLE TODO: remove movies without Posters from results + decrease totalResults number accordingly*/
             if (responseJSON.Response === 'False' && responseJSON.Error === "Movie not found!" && !responseJSON.Search) {
                 console.log('Movie not found!');
-                this.router.navigate(['/not-found']);
-                return;
             }
 
-            const movies = responseJSON.Search;
-            this.totalResults = responseJSON.totalResults;
-
-            for (let movie of movies) {
-                movie = new Movie(movie.imdbID, movie.Title, movie.Year, movie.Type, movie.Poster);
-                this.moviesSearchedWithPages.push(movie);
+            else {
+                const movies = responseJSON.Search;
+                this.totalResults = responseJSON.totalResults;
+    
+                for (let movie of movies) {
+                    if (movie.Poster === "N/A") {
+                        movie = new Movie(movie.imdbID, movie.Title, movie.Year, movie.Type, "https://crc2.pw/404.png");
+                        this.moviesSearchedWithPages.push(movie);
+                    } else {
+                        movie = new Movie(movie.imdbID, movie.Title, movie.Year, movie.Type, movie.Poster);
+                        this.moviesSearchedWithPages.push(movie);
+                    }
+                }
             }
+
             return this.moviesSearchedWithPages;
         },
         err => {
@@ -62,6 +67,9 @@ export class MovieStorageService {
             (movies: Movie[]) => {
                 if (movies) {
                     this.movieService.setMovies(movies);
+                    if (this.movieService.getMovies().length === 0) {
+                        this.router.navigate(['/not-found']);
+                    }
                 }
             }
         )

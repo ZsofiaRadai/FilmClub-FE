@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MovieStorageService } from '../movie-storage.service';
-import { MovieDetails } from '../model/movie-details.model';
+import { MovieDetails } from '../model/movieDetails.model';
 
 @Component({
   selector: 'app-movie-detail',
@@ -15,6 +15,8 @@ export class MovieDetailComponent implements OnInit {
   dataAvailable: boolean = false;
 
   private backIcon = "././assets/back-icon.png";
+  private notFoundPoster = "https://crc2.pw/404.png";
+  private goldStar = "././assets/gold_star.png";
 
   constructor(private router: Router,
               private route: ActivatedRoute,

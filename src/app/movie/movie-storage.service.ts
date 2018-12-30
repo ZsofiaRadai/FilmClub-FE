@@ -4,9 +4,10 @@ import { Injectable } from '@angular/core';
 import 'rxjs/Rx';
 import { MovieService } from './movie.service';
 import { Movie } from './model/movie.model';
-import { MovieDetails } from './model/movie-details.model';
+
 import { Observable } from 'rxjs/Rx';
 import { Router } from '@angular/router';
+import { MovieDetails } from './model/movieDetails.model';
 
 @Injectable()
 export class MovieStorageService {
@@ -46,6 +47,7 @@ export class MovieStorageService {
             else {
                 const movies = responseJSON.Search;
                 this.totalResults = responseJSON.totalResults;
+                console.log(movies);
     
                 for (let movie of movies) {
                     if (movie.Poster === "N/A") {
@@ -88,6 +90,21 @@ export class MovieStorageService {
                 }
             )
     }
+
+/*     getMovieImdbRating(movie: Movie) {
+        this.http.get("http://www.omdbapi.com/?apikey=ac3c14bf&i=" + movie.imdbID)
+        .map(
+            (response: Response) => {
+                const movie = response.json();
+                return movie.imdbRating;
+            }
+        )
+        .subscribe(
+            (rating: number) => {
+                movie.setImdbRating(rating);
+            }
+        )
+    } */
 
     public clearPreviousSearch() {
         this.pageNumOMDB = [1, 2, 3];

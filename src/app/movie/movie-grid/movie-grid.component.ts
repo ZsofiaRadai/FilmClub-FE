@@ -36,11 +36,12 @@ export class MovieGridComponent implements OnInit, OnDestroy {
         .subscribe(
             (movies: Movie[]) => {
                 this.movies = movies;
+                //when new search initialized (or next page called)
                 this.allItems = this.movieStorageService.getTotalResults();
-                console.log(this.allItems);
                 this.pager = this.pagerService.getPager(this.allItems, this.movieStorageService.getPageNum());
             }
         )
+        //when navigate back to movie grid from movie details (searched movies didn't change)
         this.allItems = this.movieStorageService.getTotalResults();
         this.pager = this.pagerService.getPager(this.allItems, this.movieStorageService.getPageNum());
         this.movies = this.movieService.getMovies();

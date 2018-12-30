@@ -1,13 +1,34 @@
 #movie-details-part {
-
     border: 2px solid #080808c4;
     border-radius: 5px;
     background: black;
     color: aliceblue;
+}
 
+.detail-poster {
+    max-height: 500px; 
+    max-width: 325px;
+    height: 100%;
+    object-fit: cover;
 }
 
 #movie-title {
     color: aliceblue;
     font-size: -webkit-xxx-large;
+}
+
+.detail-text-content {
+    margin-top: 3%
+}
+
+#back-icon {
+    max-height: 30px; 
+    margin-top: 10px; 
+    cursor: pointer;
+}
+
+#gold-star {
+    max-height: 43px;
+    margin-bottom: 12px;
+    margin-left: 10px;
 }

@@ -16,10 +16,15 @@
     cursor: pointer;
 }
 
-/* .pagination {
+.pagination>li>a {
     background: black;
-    width: 100%;
-} */
+    color: #ff066b;
+    border: 1px solid #ff066b;
+}
+
+.pagination>.active>a {
+    background: #fff;
+}
 
 
 li {

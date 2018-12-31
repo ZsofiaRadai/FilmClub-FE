@@ -15,7 +15,7 @@ export class MovieGridComponent implements OnInit, OnDestroy {
 
     private movies: Movie[] = []
     private subscSearchedMovies: Subscription;
-    private goldStar = "././assets/gold_star.png";
+    private dataAvailable: boolean = false;
 
     private allItems: number;
     private pager: any = {};
@@ -31,15 +31,18 @@ export class MovieGridComponent implements OnInit, OnDestroy {
         .subscribe(
             (movies: Movie[]) => {
                 this.movies = movies;
+                console.log(this.movies);
                 //when new search initialized (or next page called)
                 this.allItems = this.movieStorageService.getTotalResults();
                 this.pager = this.pagerService.getPager(this.allItems, this.movieStorageService.getPageNum());
+                this.dataAvailable = true;
             }
         )
         //when navigate back to movie grid from movie details (searched movies didn't change)
         this.allItems = this.movieStorageService.getTotalResults();
         this.pager = this.pagerService.getPager(this.allItems, this.movieStorageService.getPageNum());
         this.movies = this.movieService.getMovies();
+        this.dataAvailable = true;
     }
 
     setPage(page: number) {

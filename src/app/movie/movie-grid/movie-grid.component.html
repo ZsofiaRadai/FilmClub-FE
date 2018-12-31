@@ -1,15 +1,17 @@
 <div id="movie-grid-container" class="col-lg-12">
 
-    <div *ngFor="let movie of movies" class="col-lg-2">
-        <img appMovieGrid
-        class="img-thumbnail movieThumbnail" 
-        [src]="movie.poster" 
-        alt=""
-        data-toggle="tooltip" 
-        title="{{ movie.title }} ({{ movie.year }}) <br>
-        {{ movie.imdbRating }} <img src='././assets/gold_star.png' style='max-height: 15px; margin-bottom: 3px;' />"
-        [routerLink]="['/movie-details/movie', movie.imdbID]"
-        #movieThumbnail>
+    <div *ngIf="dataAvailable">
+        <div *ngFor="let movie of movies" class="col-lg-2">
+            <img appMovieGrid
+            class="img-thumbnail movieThumbnail" 
+            [src]="movie.poster" 
+            alt="Could not find picture."
+            data-toggle="tooltip" 
+            title="{{ movie.title }} ({{ movie.year }}) <br>
+            {{ movie.imdbRating }} <img src='././assets/gold_star.png' style='max-height: 15px; margin-bottom: 3px;' />"
+            [routerLink]="['/movie-details/movie', movie.imdbID]"
+            #movieThumbnail>
+        </div>
     </div>
     
 </div>

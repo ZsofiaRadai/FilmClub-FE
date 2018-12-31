@@ -45,4 +45,8 @@ export class MovieDetailComponent implements OnInit {
         },)
   }
 
+  public getMovieDetails() {
+    return this.movieDetails;
+  }
+
 }

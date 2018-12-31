@@ -5,6 +5,7 @@ import { Router } from "@angular/router";
 import { Subscription } from "rxjs";
 import { MovieStorageService } from "../movie-storage.service";
 import { PagerService } from "src/app/util/pager.service";
+import { MovieDetails } from "../model/movieDetails.model";
 
 @Component({
     selector: 'app-movie-grid',
@@ -45,6 +46,11 @@ export class MovieGridComponent implements OnInit, OnDestroy {
         this.dataAvailable = true;
     }
 
+    movieSelected(movie: MovieDetails) {
+        this.router.navigate(['/movie-details/movie', movie.imdbID]);
+        this.movieService.setMovieDetails(movie);
+    }
+
     setPage(page: number) {
         this.pager = this.pagerService.getPager(this.allItems, page);
         this.pagedItems = this.movies.slice(this.pager.startIndex, this.pager.endIndex + 1);
@@ -53,6 +59,7 @@ export class MovieGridComponent implements OnInit, OnDestroy {
         this.router.navigate(
             ['/search'], {queryParams: {page: page}, queryParamsHandling: 'merge'} 
             );
+        this.movieService.setMovieDetails(undefined);
         document.documentElement.scrollTop = 0;
     }
 

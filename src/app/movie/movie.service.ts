@@ -1,13 +1,14 @@
 import { Movie } from "./model/movie.model";
 import { EventEmitter, Injectable } from "@angular/core";
 import { Subject } from "rxjs";
+import { MovieDetails } from "./model/movieDetails.model";
 
 @Injectable({
     providedIn: 'root',
   })
 export class MovieService {
 
-    movieSelected = new EventEmitter<Movie>();
+    private movieDetails: MovieDetails;
 
     searchedMovies = new Subject<Movie[]>();
     
@@ -33,6 +34,14 @@ export class MovieService {
             }
         );
         return movie;
+    }
+
+    setMovieDetails(movie: MovieDetails) {
+        this.movieDetails = movie;
+    }
+
+    getMovieDetails() {
+        return this.movieDetails;
     }
     
 }

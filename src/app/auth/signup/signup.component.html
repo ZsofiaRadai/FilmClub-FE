@@ -1,0 +1,67 @@
+<div class="container" id="signup-form">
+    <div class="col-xs-12 col-sm-10 col-md-8">
+  
+      <form (ngSubmit)="onSignup()" #f="ngForm">
+  
+          <div class="form-group">
+            <label for="email">E-mail:</label>
+            <input 
+              type="email" 
+              id="email" 
+              name="email" 
+              class="form-control"
+              required
+              email
+              ngModel
+              #email="ngModel">
+          </div>
+
+          <span class="help-block" *ngIf="!email.valid && email.touched">
+            Please enter a valid email!
+          </span>
+  
+          <div class="form-group">
+            <label for="password1">Password:</label>
+            <input 
+              type="password" 
+              id="password" 
+              name="password" 
+              class="form-control passwords" 
+              required
+              ngModel
+              #password="ngModel">
+          </div>
+
+          <div class="form-group">
+              <label for="password2">Password again:</label>
+              <input 
+                type="password" 
+                id="passwordAgain" 
+                name="passwordAgain" 
+                class="form-control passwords"
+                required
+                ngModel
+                #passwordAgain="ngModel">
+          </div>
+
+          <span class="help-block" *ngIf="password.touched && passwordAgain.touched && (!password.valid || !passwordAgain.valid)">
+              Please enter a password!
+          </span>
+
+          <span class="help-block" id="invalid-password-error" style="visibility: hidden;">
+              Passwords are not matching!
+          </span>
+
+          <div class="row">
+              <div class="col-lg-4">
+                  <img [src]="backIcon" (click)="onBack()" alt="Back" id="back-icon">
+              </div>
+              <div class="col-lg-8">
+                <button class="btn btn-primary pull-right" type="submit">Sign up</button>
+              </div>
+          </div>
+  
+      </form>
+  
+    </div>
+  </div>

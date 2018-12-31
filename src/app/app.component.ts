@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { MovieStorageService } from './movie/movie-storage.service';
 import { MovieService } from './movie/movie.service';
 import { PagerService } from './util/pager.service';

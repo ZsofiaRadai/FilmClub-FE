@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { MovieStorageService } from '../movie/movie-storage.service';
+import { MovieService } from '../movie/movie.service';
 
 @Component({
   selector: 'app-home',
@@ -7,9 +9,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  constructor(private movieStorageService: MovieStorageService,
+              private movieService: MovieService) { }
 
   ngOnInit() {
+    this.movieStorageService.setSearchedMovieTitle(undefined);
+    this.movieService.setMovieDetails(undefined);
   }
 
 }

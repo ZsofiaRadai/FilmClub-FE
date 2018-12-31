@@ -5,6 +5,8 @@ import { MovieGridComponent } from './movie/movie-grid/movie-grid.component';
 import { MovieDetailComponent } from './movie/movie-detail/movie-detail.component';
 import { ErrorPageComponent } from './error-page/error-page.component';
 import { HomeComponent } from './home/home.component';
+import { SignupComponent } from './auth/signup/signup.component';
+import { SigninComponent } from './auth/signin/signin.component';
 
 const appRoutes: Routes = [
     {path: '', component: HomeComponent},
@@ -12,6 +14,8 @@ const appRoutes: Routes = [
     {path: 'movie-details', component: MovieDetailComponent},
     {path: 'movie-details/movie/:id', component: MovieDetailComponent},
     {path: 'not-found', component: ErrorPageComponent, data: {message: "Movie not found."}},
+    {path: 'signup', component: SignupComponent},
+    {path: 'signin', component: SigninComponent},
     {path: '**', component: ErrorPageComponent, data: {message: "This is not the page you were looking for!"}},
   ]
 

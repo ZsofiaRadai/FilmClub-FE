@@ -9,8 +9,7 @@
             data-toggle="tooltip" 
             title="{{ movie.title }} ({{ movie.year }}) <br>
             {{ movie.imdbRating }} <img src='././assets/gold_star.png' style='max-height: 15px; margin-bottom: 3px;' />"
-            [routerLink]="['/movie-details/movie', movie.imdbID]"
-            #movieThumbnail>
+            (click)="movieSelected(movie)">
         </div>
     </div>
     

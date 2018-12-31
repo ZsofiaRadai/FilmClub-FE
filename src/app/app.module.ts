@@ -17,6 +17,8 @@ import { AuthService } from './auth.service';
 import { HttpModule } from '@angular/http';
 import { HomeComponent } from './home/home.component';
 import { MovieDetailComponent } from './movie/movie-detail/movie-detail.component';
+import { SignupComponent } from './auth/signup/signup.component';
+import { SigninComponent } from './auth/signin/signin.component';
 
 
 @NgModule({
@@ -27,7 +29,9 @@ import { MovieDetailComponent } from './movie/movie-detail/movie-detail.componen
     MovieGridDirective,
     MovieDetailComponent,
     ErrorPageComponent,
-    HomeComponent
+    HomeComponent,
+    SignupComponent,
+    SigninComponent
   ],
   imports: [
     BrowserModule,

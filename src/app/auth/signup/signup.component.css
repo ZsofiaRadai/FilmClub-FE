@@ -1,0 +1,37 @@
+#signup-form {
+    border: 1px solid #f5f5f5;
+    padding: 20px;
+    border-radius: 5px;
+    width: 80%;
+    color: white;
+    background: rgba(255,255,255,.15);
+
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn-primary {
+    color: #f5f5f5;
+    background-color: #287490;
+    border-color: #333;
+}
+
+.btn-primary:hover {
+    background: #902889;
+}
+
+#back-icon {
+    max-height: 30px; 
+    cursor: pointer;
+}
+
+input.ng-invalid.ng-touched, .invalid-password{
+    border: 2px solid red;
+    background: #e8060699;
+}
+
+.help-block {
+    color: red;
+}

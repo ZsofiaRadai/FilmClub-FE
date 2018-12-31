@@ -12,7 +12,6 @@ export class MovieDetails extends Movie {
     private plot: string;
     private language: string[];
     private country: string;
-    private imdbRating: number;
     private awards: string;
 
      constructor(imdbID: string, title: string, year: string, type: string, poster: string,
@@ -31,7 +30,7 @@ export class MovieDetails extends Movie {
         this.plot = plot;
         this.language = language;
         this.country = country;
-        this.imdbRating = imdbRating;
         this.awards = awards;
+        this.setImdbRating(imdbRating);
      }
 }

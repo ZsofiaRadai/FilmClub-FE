@@ -5,6 +5,7 @@ export class Movie {
     private year: string;
     private type: string;
     private poster: string;
+    private imdbRating: number;
 
     constructor(imdbID: string, title: string, year: string, type: string, poster: string) {
         this.imdbID = imdbID;
@@ -13,5 +14,14 @@ export class Movie {
         this.type = type;
         this.poster = poster;
     }
+
+    public getImdbRating(): number {
+        return this.imdbRating;
+    }
+    public setImdbRating(value: number) {
+        this.imdbRating = value;
+    }
+
+
 
 }

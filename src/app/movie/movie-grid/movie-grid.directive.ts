@@ -1,4 +1,4 @@
-import { Directive, HostListener, HostBinding, Input, OnInit } from '@angular/core';
+import { Directive, HostListener, HostBinding, Input, OnInit, ViewChild } from '@angular/core';
 
 @Directive({
   selector: '[appMovieGrid]'
@@ -15,6 +15,11 @@ export class MovieGridDirective implements OnInit {
 
   @HostListener('mouseenter') mouseover() {
     this.backgroundColor = 'black';
+    $('[data-toggle="tooltip"]').tooltip({
+      animated: 'fade',
+      placement: 'top',
+      html: true
+    });
   }
 
   @HostListener('mouseleave') mouseleave() {

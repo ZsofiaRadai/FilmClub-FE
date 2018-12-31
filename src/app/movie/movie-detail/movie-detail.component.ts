@@ -11,8 +11,8 @@ import { MovieDetails } from '../model/movieDetails.model';
 
 export class MovieDetailComponent implements OnInit {
 
-  movieDetails: MovieDetails;
-  dataAvailable: boolean = false;
+  private movieDetails: MovieDetails;
+  private dataAvailable: boolean = false;
 
   private backIcon = "././assets/back-icon.png";
   private notFoundPoster = "https://crc2.pw/404.png";

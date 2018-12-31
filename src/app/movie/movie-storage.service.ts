@@ -1,5 +1,5 @@
 import { Http, Response } from '@angular/http';
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 
 import 'rxjs/Rx';
 import { MovieService } from './movie.service';
@@ -16,6 +16,7 @@ export class MovieStorageService {
                 private movieService: MovieService,
                 private router: Router) {}
 
+    private APIKEY = '';
     private moviesSearchedWithPages: Movie[] = [];
     private pageNumOMDB: number[] = [1, 2, 3];
     private pageNum: number = 1;
@@ -28,9 +29,7 @@ export class MovieStorageService {
         this.pageNumOMDB = [pageNum * 3 - 2, pageNum * 3 - 1, pageNum * 3];
         for (let i of this.pageNumOMDB) {
             this.searchMovie(this.searchedMovieTitle, i);
-        }
-        console.log(this.pageNumOMDB);
-        
+        }        
     }
 
     searchMovie(title: string, pageNumOMDB: number) {
@@ -47,14 +46,15 @@ export class MovieStorageService {
             else {
                 const movies = responseJSON.Search;
                 this.totalResults = responseJSON.totalResults;
-                console.log(movies);
     
                 for (let movie of movies) {
                     if (movie.Poster === "N/A") {
                         movie = new Movie(movie.imdbID, movie.Title, movie.Year, movie.Type, "https://crc2.pw/404.png");
+                        this.getMovieImdbRating(movie);
                         this.moviesSearchedWithPages.push(movie);
                     } else {
                         movie = new Movie(movie.imdbID, movie.Title, movie.Year, movie.Type, movie.Poster);
+                        this.getMovieImdbRating(movie);
                         this.moviesSearchedWithPages.push(movie);
                     }
                 }
@@ -91,7 +91,7 @@ export class MovieStorageService {
             )
     }
 
-/*     getMovieImdbRating(movie: Movie) {
+    getMovieImdbRating(movie: Movie) {
         this.http.get("http://www.omdbapi.com/?apikey=ac3c14bf&i=" + movie.imdbID)
         .map(
             (response: Response) => {
@@ -104,7 +104,7 @@ export class MovieStorageService {
                 movie.setImdbRating(rating);
             }
         )
-    } */
+    }
 
     public clearPreviousSearch() {
         this.pageNumOMDB = [1, 2, 3];

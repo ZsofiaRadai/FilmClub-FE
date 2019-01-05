@@ -32,6 +32,8 @@ export class MovieStorageService {
         }        
     }
 
+    //TODO: switch to @angular/common/http
+
     searchMovie(title: string, pageNumOMDB: number) {
         this.http.get("http://www.omdbapi.com/?apikey=ac3c14bf&s=" + title + "&page=" + pageNumOMDB)
         .map(
@@ -50,13 +52,11 @@ export class MovieStorageService {
                 for (let movie of movies) {
                     if (movie.Poster === "N/A") {
                         movie = new Movie(movie.imdbID, movie.Title, movie.Year, movie.Type, "https://crc2.pw/404.png");
-                        this.getMovieImdbRating(movie);
-                        this.moviesSearchedWithPages.push(movie);
                     } else {
                         movie = new Movie(movie.imdbID, movie.Title, movie.Year, movie.Type, movie.Poster);
-                        this.getMovieImdbRating(movie);
-                        this.moviesSearchedWithPages.push(movie);
                     }
+                    this.getMovieImdbRating(movie);
+                    this.moviesSearchedWithPages.push(movie);
                 }
             }
 

@@ -1,6 +1,6 @@
 export class Movie {
 
-    public imdbID: string;
+    public imdbID: string; // <--fix this immideately
     private title: string;
     private year: string;
     private type: string;

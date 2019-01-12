@@ -1,7 +1,7 @@
 <div class="container" id="signin-form">
     <div class="col-xs-12 col-sm-10 col-md-8">
   
-      <form (ngSubmit)="onSignin()" #f="ngForm">
+      <form (ngSubmit)="onLogin()" #f="ngForm">
   
           <div class="form-group">
             <label for="email">E-mail:</label>
@@ -33,7 +33,7 @@
                   <img [src]="backIcon" (click)="onBack()" alt="Back" id="back-icon">
               </div>
               <div class="col-lg-8">
-                <button class="btn btn-primary pull-right" type="submit">Sign in</button>
+                <button class="btn btn-primary pull-right" type="submit">Login</button>
               </div>
           </div>
   

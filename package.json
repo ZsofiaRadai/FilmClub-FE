@@ -23,6 +23,7 @@
     "bootstrap": "^3.4.0",
     "core-js": "^2.6.1",
     "jquery": "^3.3.1",
+    "jwt-decode": "^2.2.0",
     "ng2-tooltip-directive": "^2.1.6",
     "rxjs": "^6.3.3",
     "rxjs-compat": "^6.3.3",

@@ -11,15 +11,15 @@ import { MovieGridComponent } from './movie/movie-grid/movie-grid.component';
 import { MovieGridDirective } from './movie/movie-grid/movie-grid.directive';
 import { ErrorPageComponent } from './error-page/error-page.component';
 import { AppRoutingModule } from './app-routing.module';
-import { AuthGuard } from './auth-guard.service';
-import { AuthService } from './auth.service';
+import { AuthGuard } from './auth/auth-guard.service';
+import { AuthService } from './auth/auth.service';
 import { HttpClientModule } from '@angular/common/http';
 import { HomeComponent } from './home/home.component';
 import { MovieDetailComponent } from './movie/movie-detail/movie-detail.component';
 import { SignupComponent } from './auth/signup/signup.component';
-import { SigninComponent } from './auth/signin/signin.component';
-import { HttpModule } from '@angular/http';
-import { UserRestService } from './user/user.rest.service';
+import { LoginComponent } from './auth/login/login.component';
+import { HttpModule, RequestOptions } from '@angular/http';
+import { AuthRequestOptions } from './auth/auth.request.options';
 
 
 @NgModule({
@@ -32,7 +32,7 @@ import { UserRestService } from './user/user.rest.service';
     ErrorPageComponent,
     HomeComponent,
     SignupComponent,
-    SigninComponent
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -42,7 +42,12 @@ import { UserRestService } from './user/user.rest.service';
     HttpModule,
     AppRoutingModule
   ],
-  providers: [AuthGuard, AuthService],
+  providers: [AuthGuard, AuthService,
+    {
+      provide: RequestOptions, 
+      useClass: AuthRequestOptions
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
